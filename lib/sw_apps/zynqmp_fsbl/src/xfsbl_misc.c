@@ -688,6 +688,10 @@ const char *XFsbl_GetSiliconIdName(void)
 		{0x50U, "15",},
 		{0x58U, "19",},
 		{0x59U, "17",},
+		{0x60U, "28",},
+		{0x64U, "27",},
+		{0x7FU, "47",},
+
 	};
 	u32 DevSvdId;
 	u32 Index;

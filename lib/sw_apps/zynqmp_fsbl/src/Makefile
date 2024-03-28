@@ -16,6 +16,8 @@ EXEC := ron_a53_fsbl.elf
 LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
 c_SOURCES += ../misc/$(BOARD)/psu_init.c
+c_SOURCES += ../misc/$(BOARD)/psu_27_init.c
+c_SOURCES += ../misc/$(BOARD)/psu_47_init.c
 INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 

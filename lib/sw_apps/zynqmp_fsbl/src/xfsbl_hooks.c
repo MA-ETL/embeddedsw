@@ -28,6 +28,8 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_hooks.h"
+#include "psu_27_init.h"
+#include "psu_47_init.h"
 #include "psu_init.h"
 /************************** Constant Definitions *****************************/
 
@@ -117,19 +119,48 @@ u32 XFsbl_HookPsuInit(void)
 	u32 RegVal;
 #endif
 
+	// Silicon id values for 27 and 47 parts.
+	u32 Silicon_Id_27 = 0x64U
+	u32 Silixon_Id_47 = 0x7FU
+
 	/* Add the code here */
+	u32 SiliconId = ((XFsbl_In32(CSU_IDCODE) & (CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK)) >> CSU_IDCODE_SVD_SHIFT);
 
 #ifdef XFSBL_ENABLE_DDR_SR
 	/* Check if DDR is in self refresh mode */
 	RegVal = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
 		DDR_STATUS_FLAG_MASK;
 	if (RegVal) {
-		Status = (u32)psu_init_ddr_self_refresh();
+		if (SiliconId == Silicon_Id_27) {
+			Status = (u32)psu_27_init_ddr_self_refresh();
+		}
+		else if (SiliconId == Silixon_Id_47) {
+			Status = (u32)psu_47_init_ddr_self_refresh();
+		}
+		else {
+			Status = (u32)psu_init_ddr_self_refresh();
+		}
 	} else {
-		Status = (u32)psu_init();
+		if (SiliconId == Silicon_Id_27) {
+			Status = (u32)psu_27_init();
+		}
+		else if (SiliconId == Silixon_Id_47) {
+			Status = (u32)psu_47_init();
+		}
+		else {
+			Status = (u32)psu_init();
+		}
 	}
 #else
-	Status = (u32)psu_init();
+	if (SiliconId == Silicon_Id_27) {
+		Status = (u32)psu_27_init();
+	}
+	else if (SiliconId == Silixon_Id_47) {
+		Status = (u32)psu_47_init();
+	}
+	else {
+		Status = (u32)psu_init();
+	}
 #endif
 
 	if (XFSBL_SUCCESS != Status) {
