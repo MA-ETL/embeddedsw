@@ -123,7 +123,7 @@ u32 XFsbl_HookPsuInit(void)
 	u32 Silicon_Id_27 = 0x64U
 	u32 Silixon_Id_47 = 0x7FU
 
-	/* Add the code here */
+	// Check which RFSoC we are running on.
 	u32 SiliconId = ((XFsbl_In32(CSU_IDCODE) & (CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK)) >> CSU_IDCODE_SVD_SHIFT);
 
 #ifdef XFSBL_ENABLE_DDR_SR
