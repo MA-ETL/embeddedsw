@@ -120,8 +120,8 @@ u32 XFsbl_HookPsuInit(void)
 #endif
 
 	// Silicon id values for 27 and 47 parts.
-	u32 Silicon_Id_27 = 0x64U
-	u32 Silixon_Id_47 = 0x7FU
+	u32 Silicon_Id_27 = 0x64U;
+	u32 Silicon_Id_47 = 0x7FU;
 
 	// Check which RFSoC we are running on.
 	u32 SiliconId = ((XFsbl_In32(CSU_IDCODE) & (CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK)) >> CSU_IDCODE_SVD_SHIFT);
@@ -134,7 +134,7 @@ u32 XFsbl_HookPsuInit(void)
 		if (SiliconId == Silicon_Id_27) {
 			Status = (u32)psu_27_init_ddr_self_refresh();
 		}
-		else if (SiliconId == Silixon_Id_47) {
+		else if (SiliconId == Silicon_Id_47) {
 			Status = (u32)psu_47_init_ddr_self_refresh();
 		}
 		else {
@@ -144,7 +144,7 @@ u32 XFsbl_HookPsuInit(void)
 		if (SiliconId == Silicon_Id_27) {
 			Status = (u32)psu_27_init();
 		}
-		else if (SiliconId == Silixon_Id_47) {
+		else if (SiliconId == Silicon_Id_47) {
 			Status = (u32)psu_47_init();
 		}
 		else {
@@ -155,7 +155,7 @@ u32 XFsbl_HookPsuInit(void)
 	if (SiliconId == Silicon_Id_27) {
 		Status = (u32)psu_27_init();
 	}
-	else if (SiliconId == Silixon_Id_47) {
+	else if (SiliconId == Silicon_Id_47) {
 		Status = (u32)psu_47_init();
 	}
 	else {
