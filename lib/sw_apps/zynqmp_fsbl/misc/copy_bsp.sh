@@ -47,8 +47,6 @@ SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
 BSP_SEQUENTIAL_MAKEFILES=
 
-ls -al
-
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
 	echo "BSP directory already exists"
